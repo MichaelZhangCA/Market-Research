@@ -99,3 +99,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# vs 2017
+.vs
+
+# notebook
+**/.ipynb_checkpoints
