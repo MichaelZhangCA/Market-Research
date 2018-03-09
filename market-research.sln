@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "common-lib", "common-lib\common-lib.pyproj", "{7E6AE827-3267-480F-BDBD-5E69423384C1}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "data-repository", "data-repository\data-repository.pyproj", "{9247CAF8-E0C8-42F9-9DD7-76F17363984A}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "market-data", "market-data\market-data.pyproj", "{FB8CD957-A018-4A04-905F-D85B39D6308B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,10 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7E6AE827-3267-480F-BDBD-5E69423384C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7E6AE827-3267-480F-BDBD-5E69423384C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9247CAF8-E0C8-42F9-9DD7-76F17363984A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9247CAF8-E0C8-42F9-9DD7-76F17363984A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB8CD957-A018-4A04-905F-D85B39D6308B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB8CD957-A018-4A04-905F-D85B39D6308B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

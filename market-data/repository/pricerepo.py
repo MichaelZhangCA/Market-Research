@@ -1,40 +1,7 @@
 import datetime
-import numpy as np
-import pandas as pd
-
+# from repository.RepoBase import DbConnection
 from repobase import MysqlConnection
-import appvariable as appvar
 
-"""
-# get ajusted price data by symbol and given start date. the result will include start date.
-# caller should calculate for the start accurately since it will impact further calculation in some indicators. ex. EMA
-# Some indicators like SMA will need load back more than {Period} business days for calculation
-"""
-def get_stock_adjprice(symbol, startdate=appvar.STOCK_START_DATE):
-
-    query = ("SELECT effective_date, `adj_open`, `adj_high`, `adj_low`, `adj_close`, `adj_volume` FROM `market.stock_price` "
-             "WHERE symbol = '{0}' and effective_date >= '{1}' order by effective_date".format(symbol, startdate.strftime('%Y-%m-%d')))
-
-    with MysqlConnection() as cnx:
-        cur = cnx.cursor()
-        cur.execute(query)
-
-        #df = pd.DataFrame(cur.fetchall(), dtype=np.float)
-        df = pd.DataFrame(cur.fetchall())
-
-        if (not df.empty):
-            df.columns = cur.column_names
-            df.set_index('effective_date', inplace=True)
-
-        cur.close()
-         
-        return df
-
-
-""" Function to update stock price
-    refresh price will drop all exists rows and refresh the whol history
-    patch only drop any duplicated exist rows and insert new rows
-"""
 def __get_insert_sql(symbol):
     ins =("INSERT INTO `stock_market`.`market.stock_price` "
         "(`symbol`,`effective_date`,`open`,`high`,`low`,`close`,`volume`,`ex_dividend`,`split_ratio`,`adj_open`,`adj_high`,`adj_low`,`adj_close`,`adj_volume`) "

@@ -69,4 +69,4 @@ class UiHelper(object):
         sys.stdout.flush()
 
     def performstep(self):
-        self.progress(self.iteration + 1)
+        self.showprogress(self.iteration + 1)

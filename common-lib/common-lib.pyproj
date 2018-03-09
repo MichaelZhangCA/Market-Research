@@ -4,7 +4,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>7e6ae827-3267-480f-bdbd-5e69423384c1</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>common_lib.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,7 +22,15 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="common_lib.py" />
+    <Compile Include="appvariable.py" />
+    <Compile Include="codetimer.py" />
+    <Compile Include="datehelper.py" />
+    <Compile Include="emailhelper.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="logger.py" />
+    <Compile Include="repobase.py" />
+    <Compile Include="uihelper.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

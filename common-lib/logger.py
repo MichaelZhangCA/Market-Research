@@ -1,11 +1,10 @@
-from repobase import DbConnection
+from repobase import MysqlConnection
 
 class Logger(object):
 
-    def __init__(self, servicename, **kwargs):
-        self.servicename = servicename
+    def __init__(self, **kwargs):
         self.query = ("INSERT INTO `stock_market`.`ops.operation_log` (`effective_date`, `service_name`, `action_name`, `serverity`, `log_message`) "
-                 "VALUES  ( current_date, '{0}', %s, %s, %s)".format(self.servicename))
+                 "VALUES  ( current_date, '{0}', %s, %s, %s)".format(Logger.servicename))
 
         return super().__init__(**kwargs)
 
@@ -16,13 +15,17 @@ class Logger(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
 
+    # setup service name and environment parameters
+    def init_logger(env, servicename):
+        Logger.env = env
+        Logger.servicename = servicename
+
+
     def __get_log_sql(self):
-        
-        
-        return query
+        return self.query
 
     def __exec_log(self, serverity, action, msg):
-        with DbConnection() as cnx:
+        with MysqlConnection() as cnx:
             cur = cnx.cursor()
 
             # clear current record
