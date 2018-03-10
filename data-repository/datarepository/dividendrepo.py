@@ -25,6 +25,11 @@ def refresh_dividend(symbol, dividends):
         for row in dividends:
             if (row['declaredDate']==''):
                 row['declaredDate'] = None
+            if (row['recordDate']==''):
+                row['recordDate'] = None
+            if (row['amount']==''):
+                row['amount'] = None
+
             # put effective date to query
             cur.execute(ins, row)
                 

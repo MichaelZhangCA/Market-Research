@@ -154,14 +154,14 @@ def process_dividend():
                     symbol_batch.append(sym)
                 else:
                     # go get divident for the batch then save to databaes
-                    __process_batch_dividend(','.join(symbol_batch))
+                    __process_batch_dividend(symbol_batch)
                     symbol_batch = []
 
                 ui.performstep()
 
             # once out the loop, check if there is something left in the batch
             if (len(symbol_batch) > 0):
-                __process_batch_dividend(','.join(symbol_batch))
+                __process_batch_dividend(symbol_batch)
         
         log.loginfo(' -| Dividend list refreshed')
     # end of process
@@ -169,7 +169,7 @@ def process_dividend():
 
 def __process_batch_dividend(symbol_batch):
     # grab dividends from IEX by call batch
-    dvds = iexapi.get_batchdividend(','.join(symbol_batch))
+    dvds = iexapi.get_batchdividend(symbol_batch)
 
     for key, val in dvds.items():
         dividendrepo.refresh_dividend(key, val['dividends'])
@@ -196,14 +196,14 @@ def process_split():
                     symbol_batch.append(sym)
                 else:
                     # go get divident for the batch then save to databaes
-                    __process_batch_split(','.join(symbol_batch))
+                    __process_batch_split(symbol_batch)
                     symbol_batch = []
 
                 ui.performstep()
 
             # once out the loop, check if there is something left in the batch
             if (len(symbol_batch) > 0):
-                __process_batch_split(','.join(symbol_batch))
+                __process_batch_split(symbol_batch)
         
         log.loginfo(' -| Dividend list refreshed')
     # end of process
@@ -211,7 +211,7 @@ def process_split():
 
 def __process_batch_split(symbol_batch):
     # grab dividends from IEX by call batch
-    dvds = iexapi.get_batchsplit(','.join(symbol_batch))
+    dvds = iexapi.get_batchsplit(symbol_batch)
 
     for key, val in dvds.items():
         splitrepo.refresh_split(key, val['splits'])
