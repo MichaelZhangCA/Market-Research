@@ -26,7 +26,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="crossreference\__init__.py" />
+    <Compile Include="datarepository\dividendrepo.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="datarepository\indexrepo.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="datarepository\splitrepo.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="datarepository\stockpricerepo.py" />
+    <Compile Include="datarepository\symbolrepo.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="datarepository\__init__.py">
       <SubType>Code</SubType>
     </Compile>

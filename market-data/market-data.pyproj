@@ -36,10 +36,7 @@
     <Compile Include="dq.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="finsymbols\symbols.py" />
-    <Compile Include="finsymbols\symbol_helper.py" />
-    <Compile Include="finsymbols\__init__.py" />
-    <Compile Include="iex\IexApi.py">
+    <Compile Include="iex\iexapi.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="iex\__init__.py">
@@ -68,28 +65,14 @@
     <Compile Include="quandlwrap\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="repository\IndexRepo.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="repository\pricerepo.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="repository\ReferenceData.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="repository\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="alpha\" />
     <Folder Include="crossreference\" />
-    <Folder Include="finsymbols\" />
     <Folder Include="iex\" />
     <Folder Include="marketindex\" />
     <Folder Include="quandlwrap\" />
-    <Folder Include="repository\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="appconfig.ini" />

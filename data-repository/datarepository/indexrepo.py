@@ -50,3 +50,4 @@ def get_indexsymbollist():
         cur.close()
 
         return [(row[0], row[1]) for row in tb]
+

@@ -7,7 +7,7 @@ from emailhelper import EmailHelper
 from logger import Logger
 
 import appconfig
-from loader import refresh_symbollist, update_companyinfo, batchupdate_marketindices, dump_symbolhistoricdata
+from loader import process_symbollist, process_companyinfo, batchupdate_marketindices, process_symbol_historicprice, process_dividend, process_split
 
 def app_init():
     # load configuratino from ini file
@@ -28,23 +28,32 @@ def app_init():
 def main():
 
     app_init()
-    
+    print("Application initialized, start processing ...")
+
     # update the symbol list with latest data
-    refresh_symbollist()
-    print("Symbol list updated")
+    print(" -> Process symbol list")
+    process_symbollist()
     
     # patch all new symbol's company data
-    update_companyinfo()
-    print("Company info updated")
+    print(" -> Process company info")
+    process_companyinfo()
 
     # update market indicies
+    print(" -> Process index constituent")
     batchupdate_marketindices()
-    print("Index constituent updated")
 
-    # load index live symbol list
-    dump_symbolhistoricdata()
-    print("")
-    print("History data updated")
+    # refreh dividend list
+    print(' -> Process dividend list')
+    process_dividend()
+
+    # refreh split list
+    print(' -> Process split list')
+    process_split()
+
+    # load index live symbol historic data
+    print('')
+    print(" -> Process history stock price")
+    process_symbol_historicprice()
 
 if (__name__ == '__main__'):
     main()

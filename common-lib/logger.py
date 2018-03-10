@@ -2,9 +2,10 @@ from repobase import MysqlConnection
 
 class Logger(object):
 
-    def __init__(self, **kwargs):
+    def __init__(self, action='- no named -', **kwargs):
         self.query = ("INSERT INTO `stock_market`.`ops.operation_log` (`effective_date`, `service_name`, `action_name`, `serverity`, `log_message`) "
                  "VALUES  ( current_date, '{0}', %s, %s, %s)".format(Logger.servicename))
+        Logger.action = action
 
         return super().__init__(**kwargs)
 
@@ -34,6 +35,7 @@ class Logger(object):
             cur.close()
 
 
+    '''
     def loginfo(self,action,msg):
         self.__exec_log("I", action, msg)
 
@@ -43,3 +45,14 @@ class Logger(object):
 
     def logerror(self,action,msg):
         self.__exec_log("E", action, msg)
+    '''
+
+    def loginfo(self,msg):
+        self.__exec_log("I", self.action, msg)
+
+
+    def logwarning(self,msg):
+        self.__exec_log("W", self.action, msg)
+
+    def logerror(self,msg):
+        self.__exec_log("E", self.action, msg)
