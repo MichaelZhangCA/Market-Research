@@ -96,6 +96,7 @@ def process_symbol_historicprice():
         symbols = indexrepo.get_indexsymbollist()
 
         with UiHelper(len(symbols)) as ui:
+            recal_symbols = []
             for row in symbols:
                 # only reload if latest date is no last business day
                 tbd1 = datehelper.get_tbd1()
@@ -109,13 +110,23 @@ def process_symbol_historicprice():
                         his = quandlwrap.load_historicdata(symbol)
                         log.loginfo(" -> dump full historic data from quandl for : {}".format(symbol))
                         pricerepo.refresh_symbolhistoric(symbol, his)
-                        log.loginfo(" -| Completed historic data dump to database for : {}".format(symbol))
+                        log.loginfo(" -| Completed historic data refill to database for : {}".format(symbol))
+
                     elif (lastdate < tbd1):
                         log.loginfo("--> start dump historic data from quandl for : {}".format(symbol))
                         partialhis = quandlwrap.load_partialhistoricdata(symbol, datehelper.get_nextday(lastdate))
                         log.loginfo(" -> dump partial historic data from quandl for : {}".format(symbol))
-                        pricerepo.patch_symbolhistoric(symbol, partialhis)
-                        log.loginfo(" -| Completed patch missing history for : {}".format(symbol))
+                        
+                        # check patch dataset, if there is dividend or split, then drop all historic price, will run 2nd time to re-fill the data again
+                        if( partialhis[partialhis['Ex-Dividend']>0].empty and partialhis[partialhis['Split Ratio']!=1].empty):
+                            pricerepo.patch_symbolhistoric(symbol, partialhis)
+                            log.loginfo(" -| Completed patch missing history for : {}".format(symbol))
+                        else:
+                            pricerepo.clear_symbol_price(symbol)
+                            recal_symbols.append(symbol)
+                            #print(" -* There is re-calculation on symbol : {}, history cleared".format(symbol))
+                            log.loginfo(" -* There is re-calculation on symbol : {}, history cleared".format(symbol))
+
                     else:
                         # if symbol already up-to-date then skip
                         pass
@@ -128,7 +139,10 @@ def process_symbol_historicprice():
 
                 #count_cur += 1
                 ui.performstep()
-    
+            
+            # show symbols need to reload
+            if(len(recal_symbols)>0):
+                print(' -* Historic price has been cleared for these symbols due to re-ajusted price: \r\n    {}'.format(','.join(recal_symbols)))
     # end of function
     return
 

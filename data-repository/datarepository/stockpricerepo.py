@@ -102,3 +102,12 @@ def patch_symbolhistoric(symbol, hisdata):
 
         cnx.commit()
         cur.close()
+
+        
+def clear_symbol_price(symbol):
+    clr = "DELETE FROM `market.stock_price` WHERE symbol = '{0}'".format(symbol)
+
+    with MysqlConnection() as cnx:
+        cur = cnx.cursor()
+        cur.execute(clr)
+        cnx.commit()

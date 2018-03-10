@@ -55,5 +55,9 @@ def main():
     print(" -> Process history stock price")
     process_symbol_historicprice()
 
+    print('')
+    print(" -> 2nd run for rocessing history stock price")
+    process_symbol_historicprice()
+
 if (__name__ == '__main__'):
     main()
