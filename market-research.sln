@@ -9,6 +9,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "data-repository", "data-rep
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "market-data", "market-data\market-data.pyproj", "{FB8CD957-A018-4A04-905F-D85B39D6308B}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "analysis", "analysis\analysis.pyproj", "{63B7ACC8-5F2A-4B76-9972-A2902F7CB612}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{9247CAF8-E0C8-42F9-9DD7-76F17363984A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB8CD957-A018-4A04-905F-D85B39D6308B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FB8CD957-A018-4A04-905F-D85B39D6308B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63B7ACC8-5F2A-4B76-9972-A2902F7CB612}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63B7ACC8-5F2A-4B76-9972-A2902F7CB612}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

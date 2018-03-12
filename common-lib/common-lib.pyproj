@@ -28,9 +28,18 @@
     <Compile Include="emailhelper.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="indicator\common_algorithm.py" />
+    <Compile Include="indicator\momentum_indicator.py" />
+    <Compile Include="indicator\trend_indicator.py" />
+    <Compile Include="indicator\volatility_indicator.py" />
+    <Compile Include="indicator\volume_indicator.py" />
+    <Compile Include="indicator\__init__.py" />
     <Compile Include="logger.py" />
     <Compile Include="repobase.py" />
     <Compile Include="uihelper.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="indicator\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
