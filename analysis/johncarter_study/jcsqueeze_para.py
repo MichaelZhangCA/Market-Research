@@ -128,6 +128,24 @@ class JcSqueeze_Para(object):
 
         return super().__init__(**kwargs)
 
+    def asdict(self):
+        dict = {}
+        dict['para_name'] = self.paraname
+        dict['sma_period'] = self.bb_para.sma_period
+        dict['dev_mode'] = self._bb_para.dev_mode
+        dict['ema_period'] = self.kc_para.ema_period
+        dict['atr_period'] = self.kc_para.atr_period
+        dict['atr_mode'] = self.kc_para.atr_mode
+        dict['trend_indicator'] = self.trend_indicator
+        dict['trend_period'] = self.trend_period
+        dict['wave_indicator'] = self.wave_para.indicator
+        dict['wave_base_period'] = self.wave_para.baseperiod
+        dict['wave_short_period'] = self.wave_para.shortperiod
+        dict['wave_medium_period'] = self.wave_para.mediumperiod
+        dict['wave_long_period'] = self.wave_para.longperiod
+        
+        return dict
+
     @property
     def paraname(self):
         return self._paraname

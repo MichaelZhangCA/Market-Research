@@ -14,9 +14,6 @@ from logger import Logger
 from uihelper import UiHelper
 
 
-# service name for logging
-service_name = "Market data loading service"
-
 def process_symbollist():
 
     with Logger('Process symbol list') as log:

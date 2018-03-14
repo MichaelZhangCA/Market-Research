@@ -30,6 +30,7 @@
     <Folder Include="johncarter_study\charts\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="appconfig.ini" />
     <Content Include="chart\__pycache__\johncartersqueeze.cpython-36.pyc" />
     <Content Include="chart\__pycache__\johncarter_squeeze_chart.cpython-36.pyc" />
     <Content Include="chart\__pycache__\stockchart.cpython-36.pyc" />
@@ -38,6 +39,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="analysis.py" />
+    <Compile Include="appinit.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="jchelper.py">
       <SubType>Code</SubType>
     </Compile>

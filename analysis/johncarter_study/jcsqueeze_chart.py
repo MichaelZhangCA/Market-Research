@@ -6,7 +6,7 @@ import datetime
 from datetime import timedelta
 
 # the folder for all output
-chart_output_folder = 'charts'
+_chart_output_folder = 'charts'
 
 class JcChartColor(object):
     bb = 'rgb(91, 154, 255)'
@@ -27,7 +27,7 @@ class JcChartColor(object):
     wave_down = '#871001'
     pass
 
-def drawchart(symbol, df, para):
+def drawchart(symbol, df, para, auto_open_chart=True):
 
     # find the last 6 month as x axis range
     range_enddate = df.index.max()
@@ -227,10 +227,10 @@ def drawchart(symbol, df, para):
     fig = go.Figure(data=data, layout=layout )
 
     # output file name
-    file_name = os.path.join(os.path.dirname(__file__), "{}\\{} - {}.html".format(chart_output_folder, symbol, _lbl_chart_title))
+    file_name = os.path.join(os.path.dirname(__file__), "{}\\{} - {}.html".format(_chart_output_folder, symbol, _lbl_chart_title))
 
     # standalone chart
-    plotly.offline.plot(fig, filename=file_name, config=config)
+    plotly.offline.plot(fig, filename=file_name, auto_open=auto_open_chart, config=config)
 
 
 

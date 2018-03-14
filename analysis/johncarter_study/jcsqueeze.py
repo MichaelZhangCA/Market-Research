@@ -24,11 +24,9 @@ DEFAULT_JC_PRAM = {
 
 """ Live calcualte John Carter TTM Squeeze indicator based on full history adjusted price
 """
-def process_jcsqueeze(symbol, jcpara=DEFAULT_JC_PRAM):
+def process_jcsqueeze(symbol, df, jcpara=DEFAULT_JC_PRAM):
 
-    # load stock price
-    df = stockpricerepo.get_stock_adjprice(symbol)
-    
+  
     # live calculate Bollings Band
     sma, stdev, smpldev = trendidc.process_sma(df.adj_close, jcpara.bb_para.sma_period)
     df['bb_middle'] = sma
