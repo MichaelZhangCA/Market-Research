@@ -227,7 +227,7 @@ def drawchart(symbol, df, para, auto_open_chart=True):
     fig = go.Figure(data=data, layout=layout )
 
     # output file name
-    file_name = os.path.join(os.path.dirname(__file__), "{}\\{} - {}.html".format(_chart_output_folder, symbol, _lbl_chart_title))
+    file_name = os.path.join(os.path.dirname(__file__), "{}\\{}\\{} - {}.html".format(_chart_output_folder,symbol[0:1] , symbol, _lbl_chart_title))
 
     # standalone chart
     plotly.offline.plot(fig, filename=file_name, auto_open=auto_open_chart, config=config)

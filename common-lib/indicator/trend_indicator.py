@@ -95,7 +95,7 @@ def process_macd(shortema, longema, signalperiod):
 def process_ppo(shortema, longema, signalperiod):
 
     # alwasy duplicate index from the short ema, it will make sure date coverage
-    ppo = (shortema - longema) / longema
+    ppo = (shortema - longema) / longema * 100
     # df['macd_ema'] = df.macd.ewm(span=signalperiod, adjust=False).mean()
     ppo_ema = comalgo.xema(ppo, signalperiod)
     return ppo - ppo_ema
