@@ -8,7 +8,9 @@ from datetime import timedelta
 # the folder for all output
 _chart_output_folder = 'charts'
 
-class JcChartColor(object):
+class JcChartColor_Black(object):
+    background = '#000'
+
     bb = 'rgb(91, 154, 255)'
     kc = 'rgb(244, 118, 73)'
     candle_up = '#586b59'
@@ -18,16 +20,38 @@ class JcChartColor(object):
     squeeze_off = '#404241'  #f21104 for red
     squeeze_line = 'rgb(30,60,30)'
 
-    trend_up_pos = '#0599b7'
-    trend_down_pos = '#029107'
-    trend_up_neg = '#871001'
-    trend_down_neg = '#d35004'
+    trend_up_pos = '#029107'    # green
+    trend_down_pos = '#871001'  #'#0599b7'  # Orange
+    trend_up_neg = '#029107'    #'#d35004'    # blue
+    trend_down_neg = '#871001'  # red
 
     wave_up = '#029107'
     wave_down = '#871001'
     pass
 
-def drawchart(symbol, df, para, auto_open_chart=True):
+class JcChartColor_White(object):
+    background = '#F8F8F8'
+
+    bb = 'rgb(5, 76, 191)'
+    kc = 'rgb(193, 52, 17)'
+    candle_up = '#168c31'
+    candle_down = '#8c1a1a'
+
+    squeeze_on = '#0e4dba'
+    squeeze_off = '#7c7e82'  #f21104 for red
+    squeeze_line = 'rgb(30,60,30)'
+
+    trend_up_pos = '#168c31'    # green
+    trend_down_pos = '#8c1a1a'  #'#0599b7'  # Orange
+    trend_up_neg = '#168c31'    #'#d35004'    # blue
+    trend_down_neg = '#8c1a1a'  # red
+
+    wave_up = '#029107'
+    wave_down = '#871001'
+    pass
+
+
+def drawchart(symbol, df, para, theme=JcChartColor_Black, auto_open_chart=True):
 
     # find the last 6 month as x axis range
     range_enddate = df.index.max()
@@ -50,7 +74,7 @@ def drawchart(symbol, df, para, auto_open_chart=True):
     _lbl_kc_lower = '{} EMA 2 * {} {}'.format(para.kc_para.ema_period, para.kc_para.atr_period, para.kc_para.atr_mode)
 
     # enrich the data - trend indecator up/down, bb_low > kc_low, bb_high < kc_high
-    df['trend_up'] = df.trend > df.trend.shift(-1)
+    df['trend_up'] = df.trend > df.trend.shift(1)
     df['squeeze_value'] = 0                                                             # squeeze value set to 0 to show the marker on zero line
     df['is_squeeze'] = (df.bb_lower >= df.kc_lower) & (df.bb_upper <= df.kc_upper)     # squeeze indicator for color
     df['squeeze_line'] = (df.is_squeeze == False) & (df.is_squeeze.shift(1) == True)
@@ -64,26 +88,16 @@ def drawchart(symbol, df, para, auto_open_chart=True):
     '''
 
     # define style of Bollinger bands & Keltner Channels
-    _style_bb_band = dict( color = JcChartColor.bb, width = 1, dash = 'line')
-    _style_bb_middle = dict( color = JcChartColor.bb, width = 1, dash = 'dot')
+    _style_bb_band = dict( color = theme.bb, width = 1, dash = 'line')
+    _style_bb_middle = dict( color = theme.bb, width = 1, dash = 'dot')
 
-    _styl_kc_band = dict( color = JcChartColor.kc, width = 1, dash = 'line')
-    _styl_kc_middle = dict( color = JcChartColor.kc, width = 1, dash = 'dot')
-
-    '''
-    style_bollingerbands_middle = dict( color = ('rgb(22, 96, 167)'), width = 1, dash = 'dot')
-    style_bollingerbands_upper = dict( color = ('rgb(22, 96, 167)'), width = 1, dash = 'line')
-    style_bollingerbands_lower = dict( color = ('rgb(91, 154, 255)'), width = 1, dash = 'line')
-
-    style_kc_middle = dict( color = ('rgb(247, 94, 39)'), width = 1, dash = 'dot')
-    style_kc_upper = dict( color = ('rgb(247, 94, 39)'), width = 1, dash = 'line')
-    style_kc_lower = dict( color = ('rgb(244, 118, 73)'), width = 1, dash = 'line')
-    '''
+    _styl_kc_band = dict( color = theme.kc, width = 1, dash = 'line')
+    _styl_kc_middle = dict( color = theme.kc, width = 1, dash = 'dot')
 
     trace_candle = go.Candlestick(x=df.index, open=df.adj_open, high=df.adj_high, low=df.adj_low, close=df.adj_close, 
                         showlegend=False, name='close price',
-                        increasing=dict(line=dict(color= JcChartColor.candle_up)), #b1e2b6
-                        decreasing=dict(line=dict(color= JcChartColor.candle_down))
+                        increasing=dict(line=dict(color= theme.candle_up)), #b1e2b6
+                        decreasing=dict(line=dict(color= theme.candle_down))
                         ,hoverinfo='y'
                     )
 
@@ -130,18 +144,13 @@ def drawchart(symbol, df, para, auto_open_chart=True):
     squeeze_colordict = []
     for index, row in df.iterrows():
         # MACD/PPO
-        '''
-        color_trend = '#029107' if (row['trend']>=0 and row['trend_up']==True) else \
-                    ('#0599b7' if (row['trend']>=0 and row['trend_up']==False) else \
-                    ('#871001' if (row['trend']<0 and row['trend_up']==False) else '#d35004' ))
-        '''
-        color_trend = JcChartColor.trend_up_pos if (row['trend']>=0 and row['trend_up']==True) else \
-                     (JcChartColor.trend_down_pos if (row['trend']>=0 and row['trend_up']==False) else \
-                     (JcChartColor.trend_down_neg if (row['trend']<0 and row['trend_up']==False) else JcChartColor.trend_up_neg ))
+        color_trend = theme.trend_up_pos if (row['trend']>=0 and row['trend_up']==True) else \
+                     (theme.trend_down_pos if (row['trend']>=0 and row['trend_up']==False) else \
+                     (theme.trend_down_neg if (row['trend']<0 and row['trend_up']==False) else theme.trend_up_neg ))
 
         trend_colordict.append(color_trend)
         # squeeze
-        color_squeeze = JcChartColor.squeeze_on if row['is_squeeze'] else JcChartColor.squeeze_off  #f21104 for red
+        color_squeeze = theme.squeeze_on if row['is_squeeze'] else theme.squeeze_off  #f21104 for red
         squeeze_colordict.append(color_squeeze)
 
 
@@ -156,16 +165,16 @@ def drawchart(symbol, df, para, auto_open_chart=True):
                                )
 
     trace_wave_a = go.Bar(x=df.index, y=df.wavea, name=_lbl_wavea_pop, showlegend=False, 
-                    marker=dict(color=[JcChartColor.wave_up if val>=0 else JcChartColor.wave_down for val in df.wavea]),
+                    marker=dict(color=[theme.wave_up if val>=0 else theme.wave_down for val in df.wavea]),
                     yaxis = 'y4'
                    )
 
     trace_wave_b = go.Bar(x=df.index, y=df.waveb, name=_lbl_waveb_pop, showlegend=False, 
-                marker=dict(color=[JcChartColor.wave_up if val>=0 else JcChartColor.wave_down for val in df.waveb]),
+                marker=dict(color=[theme.wave_up if val>=0 else theme.wave_down for val in df.waveb]),
                 yaxis = 'y5'
                )
     trace_wave_c = go.Bar(x=df.index, y=df.wavec, name=_lbl_wavec_pop, showlegend=False, 
-                    marker=dict(color=[JcChartColor.wave_up if val>=0 else JcChartColor.wave_down for val in df.wavec]),
+                    marker=dict(color=[theme.wave_up if val>=0 else theme.wave_down for val in df.wavec]),
                     yaxis = 'y6'
                    )
 
@@ -185,13 +194,13 @@ def drawchart(symbol, df, para, auto_open_chart=True):
     # fixrange=True, cannot zoom in, useful for y axis for the small indicators
     # fixrange=Fasle with range setting, used in the main chart so it could be zoomed in
     # define xaxis template to shorten layout
-    xaxis_template = dict(type="date", showgrid=True, zeroline=True, showline=True, 
+    xaxis_template = dict(type="string", showgrid=True, zeroline=True, showline=True, 
                           rangeslider=dict(visible=False), fixedrange=False, autorange=False,
                           range = [range_startdate, range_enddate]
                      )
 
     # generate shapes for squeeze line
-    squeezeline_style = {'color':JcChartColor.squeeze_line, 'width':1, 'dash':'dot'}
+    squeezeline_style = {'color':theme.squeeze_line, 'width':1, 'dash':'dot'}
     
     squeezelines = []
     dflines = df[df.squeeze_line==True]
@@ -204,16 +213,16 @@ def drawchart(symbol, df, para, auto_open_chart=True):
         title = '{} - {}'.format(symbol, _lbl_chart_title),
         # put legend in left/top coner
         legend = dict(x=0.05, y=1.0),
-        height=1050,
+        height=1300,
         margin = go.Margin(l=80,r=30,t=50,b=100),
-        paper_bgcolor='#000', plot_bgcolor='#000',
+        paper_bgcolor=theme.background, plot_bgcolor=theme.background,
 
         xaxis = xaxis_template,
 
         # all yaxis domains (leave gap between y and below to show the x axis labels
-        yaxis = dict(domain=[0.35,1], fixedrange=False, range=[y_range_low, y_range_high], autorange=False ),
+        yaxis = dict(domain=[0.375,1], fixedrange=False, range=[y_range_low, y_range_high], autorange=False ),
         # yaxis2 = dict(domain=[0.5,0.5], visible=False),
-        yaxis3 = dict(domain=[0.225,0.325], fixedrange=True, title=_lbl_trend_idc_name),
+        yaxis3 = dict(domain=[0.225,0.35], fixedrange=True, title=_lbl_trend_idc_name),
         yaxis4 = dict(domain=[0.15,0.225], fixedrange=True, visible=True, title="WAVEA"),
         yaxis5 = dict(domain=[0.075,0.15], fixedrange=True, visible=True, title="WAVEB"),
         yaxis6 = dict(domain=[0,0.075], fixedrange=True, visible=True, title="WAVEC"),

@@ -11,6 +11,7 @@ import appinit
 from johncarter_study import jcsqueeze, jcsqueeze_chart as jcchart
 from johncarter_study.jcsqueeze import DEFAULT_JC_PRAM
 from johncarter_study.jcsqueeze_para import JcSqueeze_Para
+from johncarter_study.jcsqueeze_chart import JcChartColor_Black, JcChartColor_White
 
 def process_jc(symbols=None, jcpara=DEFAULT_JC_PRAM):
     #para = JcSqueeze_Para('ATR KC - PPO Trend')
@@ -55,7 +56,7 @@ def process_jc(symbols=None, jcpara=DEFAULT_JC_PRAM):
                     if(df_jc.empty):
                         log.logwarning(" -? {} doesn't have enough history for JC squeeze chart".format(sym))
                     else:
-                        jcchart.drawchart(sym, df_jc, jcpara, auto_open_chart=False)
+                        jcchart.drawchart(sym, df_jc, jcpara, theme = JcChartColor_White(), auto_open_chart=False)
                         # save to database
                         jcrepo.refresh_jcdata(sym, df_jc, jcpara)
                 
@@ -71,13 +72,14 @@ def process_jc(symbols=None, jcpara=DEFAULT_JC_PRAM):
 if (__name__ == '__main__'):
     appinit.app_init()
     
-    para = JcSqueeze_Para('PPO')
+    para = JcSqueeze_Para('14 EMATR')
     #para.kc_para.atr_mode = 'atr'
-    para.trend_indicator = 'PPO'
-    para.wave_para.indicator = 'PPO'
+    #para.kc_para.atr_period = 10
+    #para.trend_indicator = 'PPO'
+    #para.wave_para.indicator = 'PPO'
     #para.wave_para.shortperiod = 55
     #para.wave_para.shortperiod = 144
     #para.wave_para.shortperiod = 377
 
 
-    process_jc(['AMZN'], para)
+    process_jc(['WYNN'], para)
