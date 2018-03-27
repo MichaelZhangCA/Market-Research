@@ -17,6 +17,13 @@ notification = {
     'error_recipients' :  []
     }
 
+gmail = {
+    'smtpserver' : 'mail.gmail.com',
+    'sender' : '',
+    'passowrd' : '',
+    'recipients' :  []	#, "isg-quant@hoopp.com"]
+    }
+
 environment = {
     'env' : 'HOME',
     'servicename' : 'N/A'
@@ -38,6 +45,11 @@ def init_appconfig():
     notification['error_sender'] = config['notification']['error_sender']
     notification['info_recipients'] = list(set(config['notification']['info_recipients']))
     notification['error_recipients'] = list(set(config['notification']['error_recipients']))
+
+    gmail['smtpserver'] = config['gmail']['smtpserver']
+    gmail['sender'] = config['gmail']['sender']
+    gmail['password'] = config['gmail']['password']
+    gmail['recipients'] = list(set(config['gmail']['recipients']))
 
     environment['env'] = config['environment']['env']
     environment['servicename'] = config['environment']['servicename']

@@ -35,7 +35,7 @@ class EmailHelper(object):
         pass
 
     @staticmethod
-    def init_paramters(env, smtp, infosender, inforecipients, errorsender, errorrecipients):
+    def init_parameters(env, smtp, infosender, inforecipients, errorsender, errorrecipients):
         """ have to explicit change the Class varibles, otherwise Python will automatically create new variables """
         EmailHelper.env = env
         EmailHelper.smtpserver = smtp
