@@ -32,6 +32,9 @@
     <Compile Include="gmailhelper.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="httphelper.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="indicator\common_algorithm.py" />
     <Compile Include="indicator\momentum_indicator.py" />
     <Compile Include="indicator\trend_indicator.py" />

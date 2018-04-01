@@ -6,14 +6,15 @@ from logger import Logger
 from uihelper import UiHelper
 from datarepository import symbolrepo, indexrepo, stockpricerepo
 from analysisrepository import johncarterrepo as jcrepo
-import appinit
+import appconfig
 
 from johncarter_study import jcsqueeze, jcsqueeze_chart as jcchart
 from johncarter_study.jcsqueeze import DEFAULT_JC_PRAM
 from johncarter_study.jcsqueeze_para import JcSqueeze_Para
 from johncarter_study.jcsqueeze_chart import JcChartColor_Black, JcChartColor_White
+import jcconfig
 
-def process_jc(symbols=None, jcpara=DEFAULT_JC_PRAM):
+def process_jc(symbols=None, jcpara=DEFAULT_JC_PRAM, drawchart=False):
     #para = JcSqueeze_Para('ATR KC - PPO Trend')
     #para.kc_para.atr_mode = 'atr'
     #para.trend_indicator = 'PPO'
@@ -48,6 +49,8 @@ def process_jc(symbols=None, jcpara=DEFAULT_JC_PRAM):
                 df = stockpricerepo.get_stock_adjprice(sym)
                 if(df.empty):
                     log.logwarning(' -? has no price data for {}'.format(sym))
+                elif(len(df)<200):
+                    log.logwarning(' -? price history of {} is too short for JC Squeeze, ignored'.format(sym))
                 else:
                     df_jc = jcsqueeze.process_jcsqueeze(sym, df, jcpara)
                     # call chart but won't open the chart
@@ -56,9 +59,11 @@ def process_jc(symbols=None, jcpara=DEFAULT_JC_PRAM):
                     if(df_jc.empty):
                         log.logwarning(" -? {} doesn't have enough history for JC squeeze chart".format(sym))
                     else:
-                        jcchart.drawchart(sym, df_jc, jcpara, theme = JcChartColor_White(), auto_open_chart=False)
                         # save to database
                         jcrepo.refresh_jcdata(sym, df_jc, jcpara)
+                        # draw chart according para value
+                        if(drawchart):
+                            jcchart.drawchart(sym, df_jc, jcpara, theme = JcChartColor_White(), auto_open_chart=False)
                 
                 ui.performstep()
 
@@ -70,9 +75,9 @@ def process_jc(symbols=None, jcpara=DEFAULT_JC_PRAM):
 
 
 if (__name__ == '__main__'):
-    appinit.app_init()
+    appconfig.apply_common_config()
     
-    para = JcSqueeze_Para('14 EMATR')
+    para = jcconfig.load_config()
     #para.kc_para.atr_mode = 'atr'
     #para.kc_para.atr_period = 10
     #para.trend_indicator = 'PPO'
@@ -81,5 +86,6 @@ if (__name__ == '__main__'):
     #para.wave_para.shortperiod = 144
     #para.wave_para.shortperiod = 377
 
-
-    process_jc(['WYNN'], para)
+    # pass None as symbol list will load all symbol from database
+    # process_jc(symbols=None, jcpara=para, drawchart=False)
+    process_jc(symbols=['BKNG'], jcpara=para, drawchart=False)

@@ -27,9 +27,6 @@
     <Compile Include="alpha\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="appconfig.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="crossreference\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -60,6 +57,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="quandlwrap\historicdata.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="quandlwrap\httpwrap.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="quandlwrap\__init__.py">
