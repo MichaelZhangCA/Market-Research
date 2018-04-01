@@ -5,7 +5,7 @@ ssl_verify = False
 
 def get_httprequest(url):
 
-    if(ssl_verify):
+    if(ssl_verify==True):
         return requests.get(url)
     else:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)

@@ -8,6 +8,8 @@ import re
 from bs4 import BeautifulSoup
 import pandas as pd
 
+import httphelper
+
 """
 class WikiPages(object):
 
@@ -46,7 +48,9 @@ def get_wikihtml(idx):
     Ex. http://en.wikipedia.org/w/api.php?format=xml&action=query&titles=List_of_S%26P_500_companies&prop=revisions&rvprop=content
     '''
 
-    wiki_html = requests.get('http://en.wikipedia.org/wiki/{}'.format(idx.url))
+    url = 'http://en.wikipedia.org/wiki/{}'.format(idx.url)
+    #wiki_html = requests.get(url)
+    wiki_html = httphelper.get_httprequest(url)
 
     if (idx.cachefilename != ""):
         # Save file to be used by cache
