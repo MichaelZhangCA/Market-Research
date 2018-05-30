@@ -88,4 +88,4 @@ if (__name__ == '__main__'):
 
     # pass None as symbol list will load all symbol from database
     # process_jc(symbols=None, jcpara=para, drawchart=False)
-    process_jc(symbols=['BKNG'], jcpara=para, drawchart=False)
+    process_jc(symbols=['MSFT'], jcpara=para, drawchart=True)

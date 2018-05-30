@@ -79,7 +79,7 @@ def patch_symbolhistoric(symbol, hisdata):
     firstdate = hisdata.index.min()
     # print("  : will clean up data after (and equal) {0}".format(firstdate.to_pydatetime().strftime('%Y-%m-%d')))
 
-    clr = "DELETE FROM `market.stock_price` WHERE symbol = '{0}' and effective_date >= '{1}'".format(symbol, firstdate.to_pydatetime().strftime('%Y-%m-%d'))
+    clr = "DELETE FROM `market.stock_price` WHERE symbol = '{0}' and effective_date >= '{1}'".format(symbol, firstdate.strftime('%Y-%m-%d'))
     # print("  : sql : {}".format(clr))
 
     ins = __get_insert_sql(symbol)

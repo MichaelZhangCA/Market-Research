@@ -22,7 +22,7 @@ class MysqlConnection(object):
     def init_connection(server, db, user, pwd):
         """ have to explicit change the Class varibles, otherwise Python will automatically create new variables """
         MysqlConnection.servername = server
-        MysqlConnection.database = db
+        MysqlConnection.databasename = db
         MysqlConnection.username = user
         MysqlConnection.password = pwd
 

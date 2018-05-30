@@ -3,7 +3,7 @@ from repobase import MysqlConnection
 
 def update_jcpara(jcpara):
 
-    update_para = "INSERT INTO `stock_market`.`study.jc_squeeze_para` \
+    update_para = "INSERT INTO `study.jc_squeeze_para` \
                 (`para_name`, `sma_period`, `dev_mode`, `ema_period`, `atr_period`, `atr_mode`, `trend_indicator`, `trend_period`, \
                 `wave_indicator`, `wave_base_period`, `wave_short_period`, `wave_medium_period`, `wave_long_period`) \
                 VALUES \

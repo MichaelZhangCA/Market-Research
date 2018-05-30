@@ -3,7 +3,7 @@ from repobase import MysqlConnection
 class Logger(object):
 
     def __init__(self, action='- no named -', **kwargs):
-        self.query = ("INSERT INTO `stock_market`.`ops.operation_log` (`effective_date`, `service_name`, `action_name`, `serverity`, `log_message`) "
+        self.query = ("INSERT INTO `ops.operation_log` (`effective_date`, `service_name`, `action_type`, `severity`, `log_message`) "
                  "VALUES  ( current_date, '{0}', %s, %s, %s)".format(Logger.servicename))
         Logger.action = action
 
